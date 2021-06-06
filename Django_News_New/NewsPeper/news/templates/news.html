@@ -1,0 +1,44 @@
+{% extends 'flatpages/default.html' %}
+
+{% load custom_filters %}
+
+{% block title %}
+News
+{% endblock title %}
+
+{% block content %}
+    <h1>Новости</h1>
+    <h3>{{ time_now|date:'M d Y' }}</h3>
+    <h4>Новостей:{{ news|length }}</h4>
+    <hr>
+    {% if news %}
+        <table>
+            <tr>
+                <td>
+                    заголовок
+                </td>
+                <td>
+                    Дата публикации
+                </td>
+                <td>
+                    Текст
+                </td>
+            </tr>
+        {% for news in news %}
+            <tr>
+                <td>
+                    {{ news.heading }}
+                </td>
+                <td>
+                    {{ news.data|date:'d M Y' }}
+                </td>
+                <td>
+                    {{ news.text|truncatewords:5 }}....
+                </td>
+            </tr>
+        {% endfor %}
+        </table>
+    {% elif news %}
+        <h2>Новостей нет!</h2>
+    {% endif %}
+{% endblock content %}
