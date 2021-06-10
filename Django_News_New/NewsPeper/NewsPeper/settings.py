@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.flatpages',
     'news',
+    'django_filters',
 ]
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
