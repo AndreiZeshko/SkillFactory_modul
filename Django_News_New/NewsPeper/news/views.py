@@ -19,21 +19,26 @@ class NewsList(ListView):
 
     def get_context_data(self, **kwargs):  # забираем отфильтрованные объекты переопределяя метод get_context_data у наследуемого класса (привет, полиморфизм, мы скучали!!!)
         context = super().get_context_data(**kwargs)
-        context['filter'] = NewsFilter(self.request.GET, queryset=self.get_queryset())  # вписываем наш фильтр в контекст
+        context['filter'] = NewsFilter(self.request.GET, queryset=self.get_queryset())
+        context['category'] = Category.objects.all()
+        print(self.request.GET)
+        print(context)
         return context
 
-    def get(self, request):
-        news = News.objects.order_by('-id')
-        p = Paginator(news, 1)
+class NewsSearch(ListView):
+    model = News
+    template_name = 'news_search.html'
+    context_object_name = 'news'
+    queryset = News.objects.order_by('-data')
 
-        news = p.get_page(request.GET.get('page', 1))
-        data = {
-            'news': news,
-        }
-        return render(request, 'news.html', data)
+    def get_context_data(self, **kwargs):  # забираем отфильтрованные объекты переопределяя метод get_context_data у наследуемого класса (привет полиморфизм, мы скучали!!!)
+        context = super().get_context_data(**kwargs)
+        context['filter'] = NewsFilter(self.request.GET, queryset=self.get_queryset())  # вписываем наш фильтр в контекст
+        return context
 
 class NewsDetail(DetailView):
     model = News
     template_name = 'news2.html'
     context_object_name = 'news2'
     paginate_by = 1
+
