@@ -13,7 +13,7 @@ News Search
             {{ filter.form }} <!-- Форму от фильтров за нас сделает django. А вот кнопку, увы придётся делать самому -->
             <input type="submit" value="Найти">
         </form>
-                <input type="submit" value="Найти">
+
             </p>
         </form>
 
@@ -46,5 +46,9 @@ News Search
     {% else %}
         <h2>Новостей нет!</h2>
     {% endif %}
-
+     <form method="POST">
+        {% csrf_token %}
+        {{ form }} <!-- Теперь нам нужна только готовая форма и кнопка -->
+        <input type="submit" value="Добавить товар">
+     </form>
 {% endblock content %}

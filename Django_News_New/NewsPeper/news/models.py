@@ -39,12 +39,15 @@ class Category(models.Model):
         verbose_name_plural = 'Категории'
 
 class News(models.Model):
-    category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL)
+    category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL, verbose_name='Категория')
     heading = models.CharField(max_length= 30, unique=True, verbose_name='Заголовок')
     text = models.TextField(verbose_name='Текст')
-    author = models.ForeignKey(Author, null=True, blank=True, on_delete=models.SET_NULL)
+    author = models.ForeignKey(Author, null=True, blank=True, on_delete=models.SET_NULL, verbose_name='Автор')
     data = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     rating = models.IntegerField(default=0)
+
+    def get_absolute_url(self):
+        return f'/news/{self.id}'
 
     def __str__(self):
         return self.heading
