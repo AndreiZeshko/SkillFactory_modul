@@ -1,0 +1,47 @@
+python manage.py shell
+
+from news.models import Author, Category, News, NewsCategory, Comment
+from django.contrib.auth.models import User
+from django.db import models
+
+user2 = User.objects.create_user(username='Валентин', password='123456789')
+user3 = User.objects.create_user(username='Михаил' password='123456789')
+
+user2 = User.objects.get(id=1)
+user3 = User.objects.get(id=2)
+
+author1 = Author.objects.create(author=user2)
+author2 = Author.objects.create(author=user3)
+
+author1 = Author.objects.get(id=1)
+author2 = Author.objects.get(id=2)
+
+category1 = Category.objects.create(category_name='Спорт')
+category2 = Category.objects.create(category_name='IT')
+category3 = Category.objects.create(category_name='Наука')
+category4 = Category.objects.create(category_name='В мире')
+
+category1 = Category.objects.get(id=1)
+category2 = Category.objects.get(id=2)
+category3 = Category.objects.get(id=3)
+category4 = Category.objects.get(id=4)
+
+#так добавляем все новости по примеру.
+news1 = News.objects.create(author=author1,heading='Заголовок новости 1',text='Текст новости 1',)
+​
+news1 = Post.objects.get(id=1)
+
+news1.Post_category.add(category1)
+
+comment1 = Comment.objects.create(news=news1,user=user2,text='Текст комментария 1')
+
+comment1 = Comment.objects.get(id=1)
+
+comment1.like()
+comment2.like()
+...
+comment1.dislike()
+...
+news1.dislike()
+
+author2.update_rating()
