@@ -7,6 +7,8 @@ News
 {% endblock title %}
 
 {% block content %}
+<button> <a href="/news/newsup"> Регистрация </a></button>
+<button> <a href="upgrade/"> Стать Автором</a> </button>
     <h1>Новости</h1>
     <h3>{{ time_now|date:'M d Y' }}</h3>
     <h4>Новостей:{{ news|length }}</h4>
